@@ -18,9 +18,14 @@ form {
         flex-direction: column;
     }
 
-    input {
-        width: 500px;
+    input,
+    select {
+        max-width: 500px;
         margin: 10px 5px;
+    }
+
+    select {
+        height: 22px;
     }
 }
 
@@ -31,19 +36,21 @@ img {
 
 .meme-container {
     position: relative;
-    text-align: center;
 
-    .top-meme-text {
+    .top-meme-text,
+    .bottom-meme-text {
         position: absolute;
-        top: 15px;
         left: 50%;
         transform: translate(-50%, -50%);
+        font-size: 2em;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    .top-meme-text {
+        top: 25px;
     }
 
     .bottom-meme-text {
-        position: absolute;
-        bottom: 15px;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        bottom: -15px;
     }
 }
