@@ -5,18 +5,52 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     font-size: calc(10px + 2vmin);
     color: $dark-purple;
 }
 
 form {
     display: flex;
-    flex-direction: column;
     margin: 20px;
 
-    input {
-        width: 500px;
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input,
+    select {
+        max-width: 500px;
         margin: 10px 5px;
+    }
+
+    select {
+        height: 22px;
+    }
+}
+
+img {
+    max-width: 80vw;
+    max-height: 80vh;
+}
+
+.meme-container {
+    position: relative;
+
+    .top-meme-text,
+    .bottom-meme-text {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2em;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    .top-meme-text {
+        top: 25px;
+    }
+
+    .bottom-meme-text {
+        bottom: -15px;
     }
 }

@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
 import ImageEditor from './imageEditor';
 
+/**
+ * MemeGenerator component
+ * Holds the title, image url input, then renders imageEditor component
+ * @returns html
+ */
 function MemeGenerator() {
-    let [imgUrl, setImgUrl] = useState('');
-
-    const onChangeHandler = event => {
-        setImgUrl(event.target.value);
-    };
+    const [imgUrl, setImgUrl] = useState('');
 
     return (
         <>
             <h1>Welcome to the Meme Generator!</h1>
             <form>
-                <label htmlFor='imgUrl'>Please enter the image url below</label>
-                <input
-                    type='text'
-                    name='imgUrl'
-                    onChange={onChangeHandler}
-                    value={imgUrl}
-                />
+                <div className='form-group'>
+                    <label htmlFor='imgUrl'>Please enter the image url below</label>
+                    <input
+                        type='text'
+                        name='imgUrl'
+                        onChange={event => setImgUrl(event.target.value)}
+                        value={imgUrl}
+                    />
+                </div>
             </form>
             <ImageEditor imgUrl={imgUrl} />
         </>
