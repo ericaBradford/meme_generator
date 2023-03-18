@@ -1,23 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import MemeImage from './image';
+import React, { useState } from 'react';
+import ImageEditor from './imageEditor';
 
-function ImageEditor() {
+function MemeGenerator() {
     let [imgUrl, setImgUrl] = useState('');
 
     const onChangeHandler = event => {
         setImgUrl(event.target.value);
     };
 
-
-    useEffect(() => {
-        console.log(typeof imgUrl);
-        console.log(imgUrl);
-    }, [imgUrl]);
-
     return (
         <>
+            <h1>Welcome to the Meme Generator!</h1>
             <form>
-                <label htmlFor='imgUrl'>Image URL</label>
+                <label htmlFor='imgUrl'>Please enter the image url below</label>
                 <input
                     type='text'
                     name='imgUrl'
@@ -25,9 +20,9 @@ function ImageEditor() {
                     value={imgUrl}
                 />
             </form>
-            {imgUrl !== '' && <MemeImage />}
+            <ImageEditor imgUrl={imgUrl} />
         </>
     );
 }
 
-export default ImageEditor;
+export default MemeGenerator;
