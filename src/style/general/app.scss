@@ -39,6 +39,7 @@ img {
 
     .top-meme-text,
     .bottom-meme-text {
+        z-index: 1;
         position: absolute;
         left: 50%;
         transform: translate(-50%, -50%);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ImageEditor from './imageEditor';
+import ImageEditor from './imageEditor.tsx';
 
 /**
  * MemeGenerator component
