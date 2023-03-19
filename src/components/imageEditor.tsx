@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 /**
@@ -7,17 +7,16 @@ import PropTypes from 'prop-types';
  * @param {*} props 
  * @returns html
  */
-function ImageEditor(props) {
-    const [topText, setTopText] = useState('');
-    const [bottomText, setBottomText] = useState('');
-    const [textColor, setTextColor] = useState('#000');
-    const [rotateDeg, setRotateDeg] = useState(0);
-    const [scalePercent, setScalePercent] = useState('100%');
-    const [mirrorImg, setMirrorImg] = useState(false);
-    const imgRef = useRef();
+function ImageEditor(props: { imgUrl: string }) {
     const {
         imgUrl
     } = props;
+    const [topText, setTopText] = useState<string>('');
+    const [bottomText, setBottomText] = useState<string>('');
+    const [textColor, setTextColor] = useState<string>('#000');
+    const [rotateDegree, setRotateDegree] = useState<string>('0');
+    const [scalePercent, setScalePercent] = useState<string>('100%');
+    const [isMirrored, setIsMirrored] = useState<boolean>(false);
 
     const regEx = /^(ftp|http|https):\/\/[^ ']+$/;
     let urlValid = imgUrl !== '' && regEx.test(imgUrl);
@@ -32,18 +31,18 @@ function ImageEditor(props) {
                 <form>
                     <div className='form-group'>
                         <label htmlFor='rotate'>Rotate degrees</label>
-                        <input type='text' name={'rotate'} onChange={event => setRotateDeg(event.target.value)}
-                            value={rotateDeg} />
+                        <input type='text' name={'rotate'} onChange={event => setRotateDegree(event.target.value)}
+                            value={rotateDegree} />
                     </div>
                     <div className='form-group'>
-                        <label htmlFor='scale'>Rotate degrees</label>
+                        <label htmlFor='scale'>Scale Percent</label>
                         <input type='text' name={'scale'} onChange={event => setScalePercent(event.target.value)}
                             value={scalePercent} />
                     </div>
                     <div className='form-group'>
-                        <label htmlFor='mirror'>Rotate degrees</label>
-                        <input type='checkbox' name={'mirror'} onChange={event => setMirrorImg(event.target.checked)}
-                            value={mirrorImg} />
+                        <label htmlFor='mirror'>Mirror Image</label>
+                        <input type='checkbox' name={'mirror'} onChange={event => setIsMirrored(event.target.checked)}
+                            checked={isMirrored} />
                     </div>
                 </form>
             </>;
@@ -102,13 +101,19 @@ function ImageEditor(props) {
      * @returns image html
      */
     const getImage = function () {
-        let mirrorValue = mirrorImg ? '-1, 1' : '1';
+        // Please note that the css for mirroring something looks like what's below. So the mirrorValue variable here will translate it for us.
+        // transform: scale(-1, 1);
+        const mirrorValue = isMirrored ? '-1, 1' : '1';
+        const imageStyle = {
+            width: scalePercent,
+            transform: 'rotate(' + rotateDegree + 'deg) scale(' + mirrorValue + ')'
+        };
 
         return urlValid &&
             <div className='meme-container'>
                 <span className='top-meme-text' style={{ color: textColor }}>{topText}</span>
                 <span className='bottom-meme-text' style={{ color: textColor }}>{bottomText}</span>
-                <img src={imgUrl} ref={imgRef} style={{ width: scalePercent, transform: 'rotate(' + rotateDeg + 'deg) scale(' + mirrorValue + ')' }} alt={topText + ' ' + bottomText} />
+                <img src={imgUrl} style={imageStyle} alt={topText + ' ' + bottomText} />
             </div>;
     };
 
